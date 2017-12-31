@@ -1,0 +1,87 @@
+<html>
+<head>
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.2.8/ace.js"></script>
+<style>
+#editor {
+   width: 48%;
+    height: 70%;
+    float: left;
+    font-size: 18px;
+}
+     iframe{
+         border: 2px solid #00BFFF;
+         width:48% ;
+           height: 70%;
+         float: right;
+         background: white;
+     }
+      input[type=button]{
+            padding: 15px 30px;
+            border-radius: 4px;
+            background-color: #10EE12;
+            border: none;
+            font-size: 15px;
+            color: white;
+           }
+     button[type=button]{
+            padding: 15px 30px;
+            border-radius: 4px;
+            background-color: #00FFFF;
+            border: none;
+            font-size: 15px;
+            color: black;
+         font-weight: bold;
+         float: right;
+           }
+     h11{
+         color:#FF00FF;
+         font-size: 25px;
+         font-weight: bold;
+     }
+    </style>   
+    
+</head>
+    <body bgcolor="#DCDCDC">
+
+        <center><h1>HTML Editor</h1></center>
+       <a href="#" target="_blank"> <button type="button">CLICK FOR KEY UP EDITOR</button></a><br>
+   <center> <input onclick="run();" type="button" value="Run Code">&nbsp;<input type="button" onclick="downld()" value="Download Source"/></center><br>
+       
+     <div id="editor">
+
+
+</div>
+<iframe name="tragetCode" id="myframe"></iframe>
+    
+   <script>
+   var editor = ace.edit("editor");
+   editor.setTheme("ace/theme/twilight");
+   editor.getSession().setMode("ace/mode/html");
+   
+function run(){
+  var x = editor.getValue();
+     document.getElementById('myframe').srcdoc=x;
+           
+}
+function downld(){
+         //var textToWrite = document.getElementById("content").value;
+         var textToWrite = editor.getValue();
+            var textFileAsBlob = new Blob([textToWrite], { type: 'text/plain' });
+            var fileNameToSaveAs = "myNewFile.html";
+            var downloadLink = document.createElement("a");
+            downloadLink.download = fileNameToSaveAs;
+            downloadLink.innerHTML = "My Hidden Link";
+            window.URL = window.URL || window.webkitURL;
+            downloadLink.href = window.URL.createObjectURL(textFileAsBlob);
+            downloadLink.onclick = destroyClickedElement;
+            downloadLink.style.display = "none";
+            document.body.appendChild(downloadLink);
+            downloadLink.click();
+    }
+    function destroyClickedElement(event) {
+            document.body.removeChild(event.target);
+        }
+    </script>       
+   
+    </body>
+</html>

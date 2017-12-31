@@ -1,0 +1,98 @@
+<html>
+    <head>
+        <title>HTML Editor</title>
+       <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.2.8/ace.js"></script>
+       
+        <style>
+            #main{
+                width: 100%;
+                height: 100%;
+                background:#5F9EA0;
+            }
+          #editor {
+ width: 48%;
+    height: 80%;
+    float: left;
+    font-size: 18px;
+}
+    iframe{
+         border: 5px solid #B0C4DE;
+        background: white;
+         height: 80%;
+         width: 48%;
+        float: right;
+     }
+            .cont{
+               height: 50px;
+            }
+            h21{
+                color: #7CFC00;
+                float: left;
+                font-size: 25px;
+                font-weight: bold;
+            }
+            h31{
+                float: right;
+                margin-right: 40%;
+                font-size: 25px;
+                font-weight: bold;
+            }
+            h1{
+                color: #FFD700;
+            }
+             input[type=button]{
+            padding: 15px 30px;
+            border-radius: 4px;
+            background-color: #10EE12;
+            border: none;
+            font-size: 15px;
+            color: white;
+           }
+        </style>
+    </head>
+    <body>
+        <div id="main">
+            <center><h1>ONLINE EDITOR</h1></center>
+            <center><input type="button" onclick="downld()" value="Download Source"/></center>
+    <div class="cont">
+        <h21>Type your Code:</h21>
+        <h31>Output:</h31>
+        </div>
+        
+       <div id="editor" onkeyup="disp()">
+
+
+</div>
+<iframe name="tragetCode" id="myframe"></iframe>
+    
+   <script>
+   var editor = ace.edit("editor");
+   editor.setTheme("ace/theme/twilight");
+   editor.getSession().setMode("ace/mode/html");
+ function disp(){
+           var x = editor.getValue();
+     document.getElementById('myframe').srcdoc=x;
+       }
+       
+       function downld(){
+         //var textToWrite = document.getElementById("content").value;
+         var textToWrite = editor.getValue();
+            var textFileAsBlob = new Blob([textToWrite], { type: 'text/plain' });
+            var fileNameToSaveAs = "myNewFile.html";
+            var downloadLink = document.createElement("a");
+            downloadLink.download = fileNameToSaveAs;
+            downloadLink.innerHTML = "My Hidden Link";
+            window.URL = window.URL || window.webkitURL;
+            downloadLink.href = window.URL.createObjectURL(textFileAsBlob);
+            downloadLink.onclick = destroyClickedElement;
+            downloadLink.style.display = "none";
+            document.body.appendChild(downloadLink);
+            downloadLink.click();
+    }
+    function destroyClickedElement(event) {
+            document.body.removeChild(event.target);
+        }
+    </script>
+            </div>
+    </body>
+</html>
